@@ -107,8 +107,6 @@ func GetswyWeather(location string) (string, error) {
 
 	// Convert the coordinates to grid x, y
 	x, y := convertLonLatToGrid(lon, lat)
-	fmt.Print("xxxxxxxxx", x)
-	fmt.Print("yyyyyyyyy", y)
 	weather, err := getWeatherForecast(x, y)
 	if err != nil {
 		return "", err
@@ -163,9 +161,6 @@ func getLocationInfo(location string) (Response, error) {
 		return Response{}, err
 	}
 
-	// Print the Response struct
-	fmt.Printf("%+v\n", response)
-
 	return response, nil
 }
 
@@ -213,7 +208,6 @@ func convertLonLatToGrid(lon, lat float64) (int, int) {
 }
 
 func getWeatherForecast(nx, ny int) (string, error) {
-	fmt.Print("getWeatherForecastgetWeatherForecast")
 	baseURL := "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"
 	params := url.Values{}
 	params.Add("serviceKey", weatherAPIKey)
@@ -231,7 +225,6 @@ func getWeatherForecast(nx, ny int) (string, error) {
 	}
 	baseDate := now.Format("20060102")
 	baseTime := fmt.Sprintf("%02d00", now.Hour())
-	fmt.Println("지금시간", now)
 
 	params.Add("base_date", baseDate)
 	params.Add("base_time", baseTime)
@@ -247,7 +240,6 @@ func getWeatherForecast(nx, ny int) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("error creating request: %v", err)
 	}
-	fmt.Print("requestURLrequestURLrequestURL ", req)
 
 	// Send the request using the default HTTP client
 	client := &http.Client{}
@@ -256,7 +248,6 @@ func getWeatherForecast(nx, ny int) (string, error) {
 		return "", fmt.Errorf("error sending request: %v", err)
 	}
 	defer resp.Body.Close()
-	fmt.Print("respresprespresp ", resp)
 
 	// Read the response body
 	body, err := ioutil.ReadAll(resp.Body)
