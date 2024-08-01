@@ -1,1 +1,4 @@
 .env
+weatherChatBot
+weatherChatBot.log
+weatherChatBot.pid
